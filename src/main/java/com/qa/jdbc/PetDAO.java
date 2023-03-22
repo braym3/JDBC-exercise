@@ -62,4 +62,37 @@ public class PetDAO {
 		}
 		return 0;
 	}
+
+	public int update(int id, String name, int age, String colour, String breed) {
+
+		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
+			PreparedStatement stmt = conn
+					.prepareStatement("UPDATE pet SET name=?, age=?, colour=?, breed=? WHERE id=?");
+
+			stmt.setString(1, name);
+			stmt.setInt(2, age);
+			stmt.setString(3, colour);
+			stmt.setString(4, breed);
+			stmt.setInt(5, id);
+
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int delete(int id) {
+		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
+			PreparedStatement stmt = conn.prepareStatement("DELETE FROM pet WHERE id=?");
+
+			stmt.setInt(1, id);
+
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

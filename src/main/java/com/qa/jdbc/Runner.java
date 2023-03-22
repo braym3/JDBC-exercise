@@ -10,11 +10,18 @@ public class Runner {
 		// Add new pet
 		// System.out.println(dao.create("Laycie", 10, "Brown/White", "Manx"));
 
+		// Delete pet
+		// System.out.println(dao.delete(4));
+
 		// List all pets
 		List<Pet> pets = dao.read();
 		for (Pet p : pets) {
 			System.out.println(p.toString());
 		}
+
+		// Update record - Change Elvis' age to 11
+		// System.out.println(dao.update(3, "Elvis", 11, "Black", "Siamese"));
+
 	}
 
 }
