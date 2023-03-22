@@ -14,8 +14,8 @@ public class Runner {
 		// System.out.println(dao.delete(4));
 
 		// List all pets
-		List<Pet> pets = dao.read();
-		for (Pet p : pets) {
+		List<Object> pets = dao.read();
+		for (Object p : pets) {
 			System.out.println(p.toString());
 		}
 
