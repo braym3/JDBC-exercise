@@ -2,6 +2,7 @@ package com.qa.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,9 +42,24 @@ public class PetDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return pets;
+	}
+
+	public int create(String name, int age, String colour, String breed) {
+		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
+			PreparedStatement stmt = conn
+					.prepareStatement("INSERT INTO pet (name, age, colour, breed) VALUES (?, ?, ?, ?)");
+			stmt.setString(1, name);
+			stmt.setInt(2, age);
+			stmt.setString(3, colour);
+			stmt.setString(4, breed);
+
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
