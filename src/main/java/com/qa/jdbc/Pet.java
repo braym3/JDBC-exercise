@@ -1,15 +1,16 @@
 package com.qa.jdbc;
 
 public class Pet {
-	private int id, age;
+	private int id, age, ownerID;
 	private String name, colour, breed;
 
-	public Pet(int id, String name, int age, String colour, String breed) {
+	public Pet(int id, String name, int age, String colour, String breed, int ownerID) {
 		this.setId(id);
 		this.setName(name);
 		this.setAge(age);
 		this.setColour(colour);
 		this.setBreed(breed);
+		this.setOwnerID(ownerID);
 	}
 
 	public int getId() {
@@ -50,6 +51,14 @@ public class Pet {
 
 	public void setBreed(String breed) {
 		this.breed = breed;
+	}
+
+	public int getOwnerID() {
+		return ownerID;
+	}
+
+	public void setOwnerID(int ownerID) {
+		this.ownerID = ownerID;
 	}
 
 	@Override
