@@ -63,7 +63,8 @@ public class Pet {
 
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", age=" + age + ", name=" + name + ", colour=" + colour + ", breed=" + breed + "]";
+		return "Pet [id=" + id + ", age=" + age + ", name=" + name + ", colour=" + colour + ", breed=" + breed
+				+ ", ownerID=" + ownerID + "]";
 	}
 
 }

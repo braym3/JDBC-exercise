@@ -9,20 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetDAO {
-
-	private String url, username, password;
+public class PetDAO extends DAO {
 
 	public PetDAO(String url, String username, String password) {
-		this.url = url;
-		this.username = username;
-		this.password = password;
+		super(url, username, password);
 	}
 
-	public List<Pet> read() {
-		List<Pet> pets = new ArrayList<>();
+	@Override
+	public List<Object> read() {
+		List<Object> pets = new ArrayList<>();
 
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
+		try (Connection conn = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());) {
 
 			// try to retrieve all records in pet
 			int id, age, ownerID;
@@ -44,12 +41,14 @@ public class PetDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return pets;
 	}
 
 	public int create(String name, int age, String colour, String breed, int ownerID) {
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
+		try (Connection conn = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());) {
 			PreparedStatement stmt = conn
 					.prepareStatement("INSERT INTO pet (name, age, colour, breed, owner_id) VALUES (?, ?, ?, ?, ?)");
 			stmt.setString(1, name);
@@ -67,7 +66,7 @@ public class PetDAO {
 
 	public int update(int id, String name, int age, String colour, String breed, int ownerID) {
 
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
+		try (Connection conn = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());) {
 			PreparedStatement stmt = conn
 					.prepareStatement("UPDATE pet SET name=?, age=?, colour=?, breed=?, owner_id=? WHERE id=?");
 
@@ -76,19 +75,6 @@ public class PetDAO {
 			stmt.setString(3, colour);
 			stmt.setString(4, breed);
 			stmt.setInt(5, ownerID);
-
-			return stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	public int delete(int id) {
-		try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password);) {
-			PreparedStatement stmt = conn.prepareStatement("DELETE FROM pet WHERE id=?");
-
-			stmt.setInt(1, id);
 
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
